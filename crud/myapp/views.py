@@ -20,3 +20,20 @@ class ProductAPI(View):
             return JsonResponse({'id':product.id,'name':product.name,'price':product.price})
         else:
             return JsonResponse(form.errors,status=400)
+        
+    def put(self , request,id):
+        product=Product.objects.get(id=id)
+        data=json.loads(request.body)
+        form=ProductForm(data,instance=product)
+        if form.is_valid():
+            product.save()
+            return JsonResponse({'id':product.id,'name':product.name,'price':product.price})
+        else:
+            return JsonResponse(form.errors,status=400)
+    def delete(self, request, id):
+    
+        product = Product.objects.get(id=id)
+        product.delete()
+        return JsonResponse({'message': 'Product deleted successfully'}, status=204)
+    
+        return JsonResponse({'error': 'Product not found'}, status=404)

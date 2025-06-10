@@ -9,7 +9,7 @@ class ProductForm(forms.ModelForm):
     def clean_price(self):
         price = self.cleaned_data.get("price")
         if price<=0:
-            raise forms.validationError("Price must be grater then 0")
+            raise forms.ValidationError("Price must be grater then 0")
         
         return price
     
